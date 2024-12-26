@@ -18,4 +18,103 @@ select world_population$. *, [dbo].[Sheet1$].[Population (2023)],[dbo].[Sheet1$]
 from world_population$ left join
 [dbo].[Sheet1$] on world_population$.Country=[dbo].[Sheet1$].[Country];
 
+alter table [dbo].[world_population$]
+add difference_2020 int,
+ difference_2015 int,
+  difference_2010 int,
+   difference_2000 int,
+    difference_1990 int,
+ difference_1980 int;
+
+update world_population$
+set [difference_2022] = [2022 Population]-[2020 Population],
+[difference_2020] = [2020 Population]-[2015 Population],
+[difference_2015] = [2015 Population]-[2010 Population],
+[difference_2010] = [2010 Population]-[2000 Population],
+[difference_2000] = [2000 Population]-[1990 Population],
+[difference_1990] = [1990 Population]-[1980 Population],
+[difference_1980] = [1980 Population]-[1970 Population];
+
+
+alter table [dbo].[world_population$]
+add percentages int;
+
+update world_population$
+set [percentages]=(([2022 Population]-[1970 Population])/[1970 Population]*100)
+
+
+alter table [world_population$]
+drop column [percentages];
+
+SELECT MAX([2022 Population]) AS [Population], '2022' AS [YEAR]
+FROM world_population$
+UNION ALL
+SELECT MAX([2020 Population]) AS [Population], '2020' AS [YEAR]
+FROM world_population$
+UNION ALL
+SELECT MAX([2015 Population]) AS [Population], '2015' AS [YEAR]
+FROM world_population$
+UNION ALL
+SELECT MAX([2010 Population]) AS [Population], '2010' AS [YEAR]
+FROM world_population$
+UNION ALL
+SELECT MAX([2000 Population]) AS [Population], '2000' AS [YEAR]
+FROM world_population$
+UNION ALL
+SELECT MAX([1990 Population]) AS [Population], '1990' AS [YEAR]
+FROM world_population$
+UNION ALL
+SELECT MAX([1980 Population]) AS [Population], '1980' AS [YEAR]
+FROM world_population$
+UNION all
+SELECT MAX([1970 Population]) AS [Population], '1970' AS [YEAR]
+FROM world_population$
+
+ORDER BY Population DESC;
+
+select * from world_population$
+order by rank asc;
+#Top 5 growth rate based on country
+select  top 5 [Growth Rate],Country from [dbo].[world_population$]
+order by [Growth Rate] desc;
+
+#top 5 percentage based on continent
+select  distinct top 5  percentage,continent  from [dbo].[world_population$]
+order by percentage;
+
+# Top 5 asia continent based on 2022 population
+select distinct top 5 Continent,[2022 Population] ,country from world_population$
+where Continent='asia'
+order by [2022 Population] desc
+
+# Density Based on continent
+select distinct top 5 density,continent from world_population$
+order by Density;
+
+#population difference between year
+select SUM([difference_2022]) as 'population','2022' as [year] from world_population$
+
+
+union all
+
+select SUM([difference_2020]) as 'population','2020' as [year] from world_population$
+union all
+
+select SUM([difference_2015]) as 'population','2015' as [year] from world_population$
+union all
+
+select SUM([difference_2010]) as 'population','2010' as [year] from world_population$
+union all
+
+select SUM([difference_2000]) as 'population','2000' as [year] from world_population$
+union all
+
+select SUM([difference_1990]) as 'population','1990' as [year] from world_population$
+union all
+
+select SUM([difference_1980]) as 'population','1980' as [year] from world_population$
+
+#Growth rate based on continent
+select distinct ( [Growth Rate]),[Continent] from world_population$
+order by [Growth Rate] desc
 
