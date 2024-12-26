@@ -1,0 +1,21 @@
+
+use population;
+
+select * from world_population$;
+
+alter table world_population$
+drop column [Area (km²)],[CCA3];
+
+exec sp_rename '[dbo].[world_population$].[World Population Percentage]','percentage'
+exec sp_rename '[dbo].[world_population$].[Density (per kmÂ²)]','Density'
+
+select *
+from world_population$  inner join
+country$ on
+world_population$.Country=country$.Country;
+
+select world_population$. *, [dbo].[Sheet1$].[Population (2023)],[dbo].[Sheet1$].[Country]
+from world_population$ left join
+[dbo].[Sheet1$] on world_population$.Country=[dbo].[Sheet1$].[Country];
+
+
