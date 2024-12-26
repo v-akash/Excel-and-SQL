@@ -28,7 +28,7 @@ Asia Dominates: Leading in all metrics, Asia accounts for 59.2% of the world’s
 
 Population Then vs. Now: Comparing 2022 to 1970, we see a significant transformation in global demographics.
 
-https://github.com/v-akash/Excel-and-SQL/blob/6ee9eb4220d1634f3e817ecff28101421c4ab24d/s2.PNG
+![image alt](https://github.com/v-akash/Excel-and-SQL/blob/6c8e1890ffec979ba5b6d9c976d0d4f54b1de39d/s2.PNG)
 
 
 
